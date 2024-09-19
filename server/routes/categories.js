@@ -6,19 +6,24 @@ const base = "/categories";
 
 //destination
 router.get(base, categoriesController.indexController);
-router.get(`${base}/create`, categoriesController.createController);
-router.get(`${base}/:id/view`, categoriesController.viewSingleCategory);
-router.get(`${base}/:id/update`, categoriesController.renderUpdatePage);
-router.get(`${base}/:id/delete`, categoriesController.deletePage);
-router.post(
-  `${base}/create`,
+
+router.route(`${base}/create`)
+.get(categoriesController.createController)
+.post(
   categoriesController.uploadPhoto,
   categoriesController.postController
 );
-router.post(
-  `${base}/:id/update`,
+
+router.get(`${base}/:id/view`, categoriesController.viewSingleCategory);
+
+router.route(`${base}/:id/update`)
+.get(categoriesController.renderUpdatePage)
+.post(
   categoriesController.uploadPhoto,
   categoriesController.updateCategory
 );
+
+router.get(`${base}/:id/delete`, categoriesController.deletePage);
+
 
 module.exports = router;
